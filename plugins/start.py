@@ -1,8 +1,3 @@
-#(©)CodeXBotz
-
-
-
-
 import os
 import asyncio
 from pyrogram import Client, filters, __version__
@@ -15,7 +10,9 @@ from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
-
+"""add time im seconds for waitingwaiting before delete 
+1min=60, 2min=60×2=120, 5min=60×5=300"""
+SECONDS = int(os.getenv("SECONDS", "300"))
 
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
@@ -55,13 +52,15 @@ async def start_command(client: Client, message: Message):
                 ids = [int(int(argument[1]) / abs(client.db_channel.id))]
             except:
                 return
-        temp_msg = await message.reply("Please wait...")
+        temp_msg = await message.reply("Wait A Second...")
         try:
             messages = await get_messages(client, ids)
         except:
             await message.reply_text("Something went wrong..!")
             return
         await temp_msg.delete()
+
+        snt_msgs = []
 
         for msg in messages:
 
@@ -76,11 +75,21 @@ async def start_command(client: Client, message: Message):
                 reply_markup = None
 
             try:
-                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
+                snt_msg = await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
                 await asyncio.sleep(0.5)
+                snt_msgs.append(snt_msg)
             except FloodWait as e:
                 await asyncio.sleep(e.x)
-                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
+                snt_msg = await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
+                snt_msgs.append(snt_msg)
+            except:
+                pass
+        await message.reply_text("Files will be deleted in 5 minutes to avoid copyright issues. Please forward and save them.")
+        await asyncio.sleep(SECONDS)
+
+        for snt_msg in snt_msgs:
+            try:
+                await snt_msg.delete()
             except:
                 pass
         return
@@ -88,8 +97,8 @@ async def start_command(client: Client, message: Message):
         reply_markup = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("😊 About Me", callback_data = "about"),
-                    InlineKeyboardButton("🔒 Close", callback_data = "close")
+                    InlineKeyboardButton("⚡️ ᴀʙᴏᴜᴛ", callback_data = "about"),
+                    InlineKeyboardButton('🍁 Provide By', url='https://t.me/WMA_RQ')
                 ]
             ]
         )
@@ -107,7 +116,7 @@ async def start_command(client: Client, message: Message):
         )
         return
 
-    
+
 #=====================================================================================##
 
 WAIT_MSG = """"<b>Processing ...</b>"""
@@ -116,22 +125,21 @@ REPLY_ERROR = """<code>Use this command as a replay to any telegram message with
 
 #=====================================================================================##
 
-    
-    
+
+
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = [
         [
-            InlineKeyboardButton(
-                "Join Channel",
-                url = client.invitelink)
+            InlineKeyboardButton(text="ᴊᴏɪɴ Cash_scope", url=client.invitelink),
+            InlineKeyboardButton(text="ᴊᴏɪɴ WMA_RQ", url=client.invitelink2),
         ]
     ]
     try:
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text = 'Try Again',
+                    text = 'ʀᴇʟᴏᴀᴅ',
                     url = f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]
@@ -168,7 +176,7 @@ async def send_text(client: Bot, message: Message):
         blocked = 0
         deleted = 0
         unsuccessful = 0
-        
+
         pls_wait = await message.reply("<i>Broadcasting Message.. This will Take Some Time</i>")
         for chat_id in query:
             try:
@@ -188,7 +196,7 @@ async def send_text(client: Bot, message: Message):
                 unsuccessful += 1
                 pass
             total += 1
-        
+
         status = f"""<b><u>Broadcast Completed</u>
 
 Total Users: <code>{total}</code>
@@ -196,7 +204,7 @@ Successful: <code>{successful}</code>
 Blocked Users: <code>{blocked}</code>
 Deleted Accounts: <code>{deleted}</code>
 Unsuccessful: <code>{unsuccessful}</code></b>"""
-        
+
         return await pls_wait.edit(status)
 
     else:
