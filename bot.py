@@ -28,36 +28,6 @@ class Bot(Client):
         usr_bot_me = await self.get_me()
         self.uptime = datetime.now()
 
-        if FORCE_SUB_CHANNEL:
-    try:
-        channel_info = await self.get_chat(FORCE_SUB_CHANNEL)
-        channel_username = channel_info.username
-        if not channel_username:
-            self.LOGGER(__name__).warning("Channel username not found for FORCE_SUB_CHANNEL.")
-            # Handle the case when channel username is not available
-        self.channel_username = "@" + channel_username
-    except Exception as a:
-        self.LOGGER(__name__).warning(a)
-        self.LOGGER(__name__).warning("Bot can't fetch information from Force Sub Channel!")
-        self.LOGGER(__name__).warning(f"Please Double check the FORCE_SUB_CHANNEL value and Make sure Bot is Admin in channel with necessary permissions, Current Force Sub Channel Value: {FORCE_SUB_CHANNEL}")
-        self.LOGGER(__name__).info("\nBot Stopped. https://t.me/WMA_RQ for support")
-        sys.exit()
-        
-if FORCE_SUB_CHANNEL2:
-    try:
-        channel_info = await self.get_chat(FORCE_SUB_CHANNEL2)
-        channel_username = channel_info.username
-        if not channel_username:
-            self.LOGGER(__name__).warning("Channel username not found for FORCE_SUB_CHANNEL2.")
-            # Handle the case when channel username is not available
-        self.channel_username2 = "@" + channel_username
-    except Exception as a:
-        self.LOGGER(__name__).warning(a)
-        self.LOGGER(__name__).warning("Bot can't fetch information from Force Sub Channel2!")
-        self.LOGGER(__name__).warning(f"Please Double check the FORCE_SUB_CHANNEL2 value and Make sure Bot is Admin in channel with necessary permissions, Current Force Sub Channel2 Value: {FORCE_SUB_CHANNEL2}")
-        self.LOGGER(__name__).info("\nBot Stopped. https://t.me/WMA_RQ for support")
-        sys.exit()
-        try:
             db_channel = await self.get_chat(CHANNEL_ID)
             self.db_channel = db_channel
             test = await self.send_message(chat_id = db_channel.id, text = "Test Message")
