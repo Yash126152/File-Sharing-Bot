@@ -59,9 +59,9 @@ async def start_command(client: Client, message: Message):
             await message.reply_text("Something went wrong..!")
             return
         await temp_msg.delete()
-
+        
         snt_msgs = []
-
+        
         for msg in messages:
 
             if bool(CUSTOM_CAPTION) & bool(msg.document):
@@ -116,7 +116,7 @@ async def start_command(client: Client, message: Message):
         )
         return
 
-
+    
 #=====================================================================================##
 
 WAIT_MSG = """"<b>Processing ...</b>"""
@@ -125,14 +125,14 @@ REPLY_ERROR = """<code>Use this command as a replay to any telegram message with
 
 #=====================================================================================##
 
-
-
+    
+    
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = [
         [
-            InlineKeyboardButton(text="ᴊᴏɪɴ Cash_scope", url="https://t.me/Cash_scope"),
-            InlineKeyboardButton(text="ᴊᴏɪɴ WMA_RQ", url="https://t.me/WMA_RQ"),
+            InlineKeyboardButton(text="ᴊᴏɪɴ Cash_scope", url=client.invitelink),
+            InlineKeyboardButton(text="ᴊᴏɪɴ WMA_RQ", url=client.invitelink2),
         ]
     ]
     try:
@@ -176,7 +176,7 @@ async def send_text(client: Bot, message: Message):
         blocked = 0
         deleted = 0
         unsuccessful = 0
-
+        
         pls_wait = await message.reply("<i>Broadcasting Message.. This will Take Some Time</i>")
         for chat_id in query:
             try:
@@ -196,7 +196,7 @@ async def send_text(client: Bot, message: Message):
                 unsuccessful += 1
                 pass
             total += 1
-
+        
         status = f"""<b><u>Broadcast Completed</u>
 
 Total Users: <code>{total}</code>
@@ -204,7 +204,7 @@ Successful: <code>{successful}</code>
 Blocked Users: <code>{blocked}</code>
 Deleted Accounts: <code>{deleted}</code>
 Unsuccessful: <code>{unsuccessful}</code></b>"""
-
+        
         return await pls_wait.edit(status)
 
     else:
