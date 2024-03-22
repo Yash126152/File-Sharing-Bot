@@ -34,7 +34,7 @@ async def batch(client: Client, message: Message):
     base64_string = await encode(string)
     link = f"{base64_string}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("📂 Get Files", url=f'https://t.me/{client.username}?start={link}')]])
-    await second_message.reply_text(f"<b>links 🔗</b>\n\nBot1 - <code>https://t.me/WMA_RQ1_bot?start={link}</code>\n\nBot2 - <code>https://t.me/WMA_RQ2_bot?start={link}</code>\n\nBot3 - <code>https://t.me/WMA_RQ_bot?start={link}</code>\n\nBot4 - <code>https://t.me/WebMoviesRebot?start={link}</code>", quote=True, reply_markup=reply_markup)
+    await second_message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>Click Me</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>Click Me</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>Click Me</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>Click Me</a>", quote=True, reply_markup=reply_markup)
     await message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>480p 720p 1080p</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>480p 720p 1080p</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>480p 720p 1080p</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>480p 720p 1080p</a>", quote=True)
 
 @Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('genlink'))
