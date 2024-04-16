@@ -42,7 +42,7 @@ except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
 
 #Force sub message 
-FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "Hello {first}\n\n<b>You need to join in my Channel to use me\n\nKindly Please join Channel\n\nमेरा उपयोग करने के लिए आपको मेरे चैनल/ग्रुप में शामिल होना होगा\n\nकृपया चैनल से जुड़ेंn </b>")
+FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "Hello {first}\n\n<b>You need to join in my Channel to use me\n\nKindly Please join Channel\n\nमेरा उपयोग करने के लिए आपको मेरे चैनल/ग्रुप में शामिल होना होगा\n\nकृपया चैनल से जुड़ें </b>")
 
 #set your Custom Caption here, Keep None for Disable Custom Caption
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
