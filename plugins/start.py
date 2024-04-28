@@ -89,12 +89,12 @@ async def start_command(client: Client, message: Message):
                 pass
         sent_message = await message.reply_text("Files will be deleted in 5 minutes to avoid copyright issues. Please forward and save them .")
         
-        # Add a delay of 6 minutes before deleting the message
+        # Add a delay of 6 minutes before editing the message
         await asyncio.sleep(360)  # 360 seconds = 6 minutes
-        
-        # Delete the message
+
+        # Edit the message
         try:
-            await sent_message.delete()
+            await sent_message.edit("Yᴏᴜʀ Fɪʟᴇ/Vɪᴅᴇᴏ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺")
         except:
             pass
 
