@@ -89,8 +89,8 @@ async def start_command(client: Client, message: Message):
                 pass
         sent_message = await message.reply_text("📂 𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 5 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.")
         
-        # Add a delay of 6 minutes before editing the message
-        await asyncio.sleep(360)  # 360 seconds = 6 minutes
+        # Add a delay of 5 minutes before editing the message
+        await asyncio.sleep(300)  # 300 seconds = 5 minutes
 
         # Edit the message
         try:
@@ -135,6 +135,19 @@ REPLY_ERROR = """<code>Use this command as a reply to any telegram message witho
 
 #=====================================================================================##
 
+@Bot.on_message(filters.command('donate') & filters.private)
+async def donate_command(client: Client, message: Message):
+    donate_message = (
+        "🌟 Thank you for considering a donation! Your support helps us keep this bot running smoothly. 🌟\n\n"
+        "You can donate using the link below:\n"
+        "[Donate](https://oxapay.com/donate/25685660)"
+    )
+
+    await message.reply_text(
+        text=donate_message,
+        parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
 
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
