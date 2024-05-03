@@ -10,11 +10,6 @@ from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
-"""add time in seconds for waiting before delete 
-1min=60, 2min=60×2=120, 5min=60×5=300"""
-SECONDS = int(os.getenv("SECONDS", "300"))
-
-
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     id = message.from_user.id
@@ -87,14 +82,14 @@ async def start_command(client: Client, message: Message):
                 snt_msgs.append(snt_msg)
             except:
                 pass
-        sent_message = await message.reply_text("📂 𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 5 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.")
-        
-        # Add a delay of 5 minutes before editing the message
+        sent_message = await message.reply_text("Dear User, your Small Donate Bot is the heartbeat of kindness. Keep its light shining bright\n\n𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 5 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Donate Now", url="https://oxapay.com/donate/25685660")]]))
+
+     # Add a delay of 5 minutes before editing the message
         await asyncio.sleep(300)  # 300 seconds = 5 minutes
 
         # Edit the message
         try:
-            await sent_message.edit("Yᴏᴜʀ Fɪʟᴇ/Vɪᴅᴇᴏ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺")
+            await sent_message.edit("Yᴏᴜʀ Fɪʟᴇ/Vɪᴅᴇᴏ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Deleted", url=f"https://t.me/{client.username}?start={message.command[1]}")]]))
         except:
             pass
 
@@ -135,19 +130,6 @@ REPLY_ERROR = """<code>Use this command as a reply to any telegram message witho
 
 #=====================================================================================##
 
-@Bot.on_message(filters.command('donate') & filters.private)
-async def donate_command(client: Client, message: Message):
-    donate_message = (
-        "🌟 Thank you for considering a donation! Your support helps us keep this bot running smoothly. 🌟\n\n"
-        "You can donate using the link below:\n"
-        "[Donate](https://oxapay.com/donate/25685660)"
-    )
-
-    await message.reply_text(
-        text=donate_message,
-        parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
 
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
@@ -219,7 +201,7 @@ async def send_text(client: Bot, message: Message):
             except:
                 unsuccessful += 1
                 pass
-        
+
         status = f"""<b><u>Broadcast Completed</u>
 
 Total Users: <code>{total}</code>
@@ -227,7 +209,7 @@ Successful: <code>{successful}</code>
 Blocked Users: <code>{blocked}</code>
 Deleted Accounts: <code>{deleted}</code>
 Unsuccessful: <code>{unsuccessful}</code></b>"""
-        
+
         return await pls_wait.edit(status)
 
     else:
