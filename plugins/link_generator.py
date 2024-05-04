@@ -7,22 +7,36 @@ from helper_func import encode, get_message_id
 # Define a global variable to store the title
 hyperlink_title = "480p 720p 1080p"
 
-@Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('btitle'))
+@Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('blink'))
 async def set_hyperlink_title(client: Client, message: Message):
     global hyperlink_title
     # Extract the title from the message text
-    title = message.text.split("/btitle ", 1)[-1]
-    if title:
+    title = message.text.split("/blink ", 1)[-1]
+    if title and title != '/blink':  # Check if the title is not empty and not equal to the command
         hyperlink_title = title
-        await message.reply_text(f"Hyperlink title set to: {hyperlink_title}")
+        await message.reply_text(f"/Batch Hyperlink title set to: {hyperlink_title}")
     else:
-        await message.reply_text("Please provide a title.")
+        await message.reply_text(f"Please provide a valid title.\n\nCurrent Batch Hyperlink Title :- {hyperlink_title}")
+
+# Define a global variable to store the title
+hyperlink_titl = "Click Me"
+
+@Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('glink'))
+async def set_hyperlink_titl(client: Client, message: Message):
+    global hyperlink_titl
+    # Extract the title from the message text
+    title = message.text.split("/glink ", 1)[-1]
+    if title and title != '/glink':  # Check if the title is not empty and not equal to the command
+        hyperlink_titl = title
+        await message.reply_text(f"/Genlink Hyperlink title set to: {hyperlink_titl}")
+    else:
+        await message.reply_text(f"Please provide a valid title.\n\nGenlink Hyperlink Title :- {hyperlink_titl}")
 
 @Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('batch'))
 async def batch(client: Client, message: Message):
     while True:
         try:
-            first_message = await client.ask(text="Forward the First Message from DB Channel (with Quotes)..\n\nor Send the DB Channel Post Link", chat_id=message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+            first_message = await client.ask(text=f"Forward the First Message from DB Channel (with Quotes)..\n\nor Send the <a href='https://t.me/+I_99FqoC8ABhYTU1'>DB Channel Post</a> Link\n\nCurrent Batch Hyperlink Title - ( {hyperlink_title} ) Change - /btitle\n\nTime Out in 2 Minutes", chat_id=message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=120)
         except:
             return
         f_msg_id = await get_message_id(client, first_message)
@@ -34,7 +48,7 @@ async def batch(client: Client, message: Message):
 
     while True:
         try:
-            second_message = await client.ask(text="Forward the Last Message from DB Channel (with Quotes)..\nor Send the DB Channel Post link", chat_id=message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+            second_message = await client.ask(text=f"Forward the Last Message from DB Channel (with Quotes)..\nor Send the <a href='https://t.me/+I_99FqoC8ABhYTU1'>DB Channel Post</a> link\n\nCurrent Batch Hyperlink Title - ( {hyperlink_title} ) Change - /btitle\n\nTime Out in 2 Minutes", chat_id=message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=120)
         except:
             return
         s_msg_id = await get_message_id(client, second_message)
@@ -48,14 +62,16 @@ async def batch(client: Client, message: Message):
     base64_string = await encode(string)
     link = f"{base64_string}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("📂 Get Files", url=f'https://t.me/{client.username}?start={link}')]])
-    await second_message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>Click Me</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>Click Me</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>Click Me</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>Click Me</a>", quote=True, reply_markup=reply_markup)
-    await message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_title}</a>", quote=True)
+
+    await second_message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_title}</a>\n\nNote:-\nKnow that <a href='https://t.me/Cash_scope'>all</a> our bots function the same. In case one is down, simply switch <a href='https://t.me/WMA_RQ'>to</a> another for uninterrupted service.\n<a href='https://t.me/Cash_scope/238'>Direct Files</a>", quote=True,
+        disable_web_page_preview=True
+    )
 
 @Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('genlink'))
 async def link_generator(client: Client, message: Message):
     while True:
         try:
-            channel_message = await client.ask(text="Forward Message from the DB Channel (with Quotes)..\nor Send the DB Channel Post link", chat_id=message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+            channel_message = await client.ask(text=f"Forward Message from the DB Channel (with Quotes)..\nor Send the <a href='https://t.me/+I_99FqoC8ABhYTU1'>DB Channel Post</a> link\n\nCurrent Hyperlink Title - ( {hyperlink_titl} ) Change - /gtitle\n\nTime Out in 1 Minutes", chat_id=message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
         except:
             return
         msg_id = await get_message_id(client, channel_message)
@@ -68,5 +84,6 @@ async def link_generator(client: Client, message: Message):
     base64_string = await encode(f"get-{msg_id * abs(client.db_channel.id)}")
     link = f"{base64_string}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("📂 Get File", url=f'https://t.me/{client.username}?start={link}')]])
-    await channel_message.reply_text(f"<b>links</b>\n\nBot 1 - <code>https://t.me/WMA_RQ1_bot?start={link}</code>\n\nBot 2 - <code>https://t.me/WMA_RQ2_bot?start={link}</code>\n\nBot 3 - <code>https://t.me/WMA_RQ_bot?start={link}</code>\n\nBot 4 - <code>https://t.me/WebMoviesRebot?start={link}</code>", quote=True, reply_markup=reply_markup)
-    await message.reply_text(f"<b>Bot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>Click Me</a>\n\n<b>Bot 2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>Click Me</a>\n\n<b>Bot 3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>Click Me</a>\n\n<b>Bot 4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>Click Me</a>", quote=True)
+    await channel_message.reply_text(f"<b>Links 🔗\n\n<b>Bot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_titl}</a>\n\n<b>Bot 2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_titl}</a>\n\n<b>Bot 3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_titl}</a>\n\n<b>Bot 4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_titl}</a>\n\nNote:-\nKnow that <a href='https://t.me/Cash_scope'>all</a> our bots function the same. In case one is down, simply switch <a href='https://t.me/WMA_RQ'>to</a> another for uninterrupted service.\n<a href='https://t.me/Cash_scope/238'>Direct File</a>", quote=True,
+        disable_web_page_preview=True
+    )
