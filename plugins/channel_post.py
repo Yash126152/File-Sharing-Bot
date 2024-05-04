@@ -2,12 +2,25 @@ import asyncio
 from pyrogram import filters, Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
-
 from bot import Bot
 from config import ADMINS, CHANNEL_ID, DISABLE_CHANNEL_BUTTON
 from helper_func import encode
 
-@Bot.on_message(filters.private & filters.user(ADMINS) & ~filters.command(['start','users','broadcast','batch','genlink','stats','donate']))
+# Define a global variable to store the title
+hyperlink_titl = "Click Me"
+
+@Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('flink'))
+async def set_hyperlink_titl(client: Client, message: Message):
+    global hyperlink_titl
+    # Extract the title from the message text
+    title = message.text.split("/flink ", 1)[-1]
+    if title and title != '/flink':  # Check if the title is not empty and not equal to the command
+        hyperlink_titl = title
+        await message.reply_text(f"/Forward Message Hyperlink title set to: {hyperlink_titl}")
+    else:
+        await message.reply_text(f"Please provide a valid title.\n\nCurrent Forward Message's Hyperlink Title :- {hyperlink_titl}")
+
+@Bot.on_message(filters.private & filters.user(ADMINS) & ~filters.command(['start','users','broadcast','batch','genlink','stats','donate','blink','glink','flink']))
 async def channel_post(client: Client, message: Message):
     reply_text = await message.reply_text("Please Wait...!", quote=True)
     try:
@@ -27,16 +40,21 @@ async def channel_post(client: Client, message: Message):
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("📂 Get File", url=f'https://t.me/{client.username}?start={link}')]])
 
     try:
-        await reply_text.edit(f"<b>links 🔗</b>\n\nBot 1 - <code>https://t.me/WMA_RQ1_bot?start={link}</code>\n\nBot 2 - <code>https://t.me/WMA_RQ2_bot?start={link}</code>\n\nBot 3 - <code>https://t.me/WMA_RQ_bot?start={link}</code>\n\nBot 4 - <code>https://t.me/WebMoviesRebot?start={link}</code>", reply_markup=reply_markup)
+        await reply_text.edit_text(
+            f"<b>Links\n\nBot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_titl}</a>\n\n"
+            f"<b>Bot 2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_titl}</a>\n\n"
+            f"<b>Bot 3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_titl}</a>\n\n"
+            f"<b>Bot 4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_titl}</a>\n\n"
+            "Note:-\nKnow that <a href='https://t.me/Cash_scope'>all</a> our bots function the same. "
+            "In case one is down, simply switch <a href='https://t.me/WMA_RQ'>to</a> another for uninterrupted service.\n"
+            "<a href='https://t.me/Cash_scope/238'>Direct File</a>", 
+            disable_web_page_preview=True,
+            reply_markup=reply_markup
+        )
     except Exception as e:
         print(e)
         await reply_text.edit_text("Failed to update links. Error: " + str(e))
 
-    try:
-        await message.reply_text(f"<b>Links 🔗\n\nBot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>Click Me</a>\n\n<b>Bot 2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>Click Me</a>\n\n<b>Bot 3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>Click Me</a>\n\n<b>Bot 4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>Click Me</a>", quote=True)
-    except Exception as e:
-        print(e)
-        await reply_text.edit_text("Failed to reply with links.")
     if not DISABLE_CHANNEL_BUTTON:
         await post_message.edit_reply_markup(reply_markup)
 
@@ -55,4 +73,3 @@ async def new_post(client: Client, message: Message):
         await message.edit_reply_markup(reply_markup)
     except Exception as e:
         print(e)
-        pass
