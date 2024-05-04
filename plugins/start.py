@@ -10,6 +10,20 @@ from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
+@Bot.on_message(filters.command('donate') & filters.private)
+async def donate_command(client: Client, message: Message):
+    donate_message = (
+        "🌟 Thank you for considering a donation! Your support helps us keep this bot running smoothly. 🌟\n\n"
+        "You can donate using the link below:\n"
+        "[Donate](https://oxapay.com/donate/25685660)"
+    )
+
+    await message.reply_text(
+        text=donate_message,
+        parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     id = message.from_user.id
