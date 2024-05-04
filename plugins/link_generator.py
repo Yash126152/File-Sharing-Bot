@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message, from pyrogram.types import Update , InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, Update, InlineKeyboardMarkup, InlineKeyboardButton
 from bot import Bot
 from config import ADMINS
 from helper_func import encode, get_message_id
