@@ -4,6 +4,20 @@ from bot import Bot
 from config import ADMINS
 from helper_func import encode, get_message_id
 
+# Define a global variable to store the title
+hyperlink_title = "480p 720p 1080p"
+
+@Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('btitle'))
+async def set_hyperlink_title(client: Client, message: Message):
+    global hyperlink_title
+    # Extract the title from the message text
+    title = message.text.split("/btitle ", 1)[-1]
+    if title:
+        hyperlink_title = title
+        await message.reply_text(f"Hyperlink title set to: {hyperlink_title}")
+    else:
+        await message.reply_text("Please provide a title.")
+
 @Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('batch'))
 async def batch(client: Client, message: Message):
     while True:
@@ -35,7 +49,7 @@ async def batch(client: Client, message: Message):
     link = f"{base64_string}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("📂 Get Files", url=f'https://t.me/{client.username}?start={link}')]])
     await second_message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>Click Me</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>Click Me</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>Click Me</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>Click Me</a>", quote=True, reply_markup=reply_markup)
-    await message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>480p 720p 1080p</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>480p 720p 1080p</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>480p 720p 1080p</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>480p 720p 1080p</a>", quote=True)
+    await message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_title}</a>", quote=True)
 
 @Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('genlink'))
 async def link_generator(client: Client, message: Message):
