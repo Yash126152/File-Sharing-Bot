@@ -96,9 +96,12 @@ async def start_command(client: Client, message: Message):
                 snt_msgs.append(snt_msg)
             except:
                 pass
-        sent_message = await message.reply_text("Dear User, your Small Donate Bot is the heartbeat of kindness. Keep its light shining bright\n\n𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 5 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Donate Now", url="https://oxapay.com/donate/25685660")]]))
+        sent_message = await message.reply_text("Help support us by joining the airdrops listed below and checking out Airdrop <a href='https://t.me/Catizen_Air'>Sources</a> .\n\n𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 5 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.", reply_markup=InlineKeyboardMarkup([
+    [InlineKeyboardButton("Catizen Airdrop", url="https://t.me/catizenbot/gameapp?startapp=r_3069_8237401")],
+    [InlineKeyboardButton("Yescoin Airdrop", url="https://t.me/realyescoinbot?start=t_1374193671_153724")]
+]))
 
-     # Add a delay of 5 minutes before editing the message
+        # Add a delay of 5 minutes before editing the message
         await asyncio.sleep(300)  # 300 seconds = 5 minutes
 
         # Edit the message
@@ -106,7 +109,6 @@ async def start_command(client: Client, message: Message):
             await sent_message.edit("Yᴏᴜʀ Fɪʟᴇ/Vɪᴅᴇᴏ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Deleted", url=f"https://t.me/{client.username}?start={message.command[1]}")]]))
         except:
             pass
-
         for snt_msg in snt_msgs:
             try:
                 await snt_msg.delete()
@@ -135,6 +137,7 @@ async def start_command(client: Client, message: Message):
             quote=True
         )
         return
+
 
 #=====================================================================================##
 
