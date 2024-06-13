@@ -30,7 +30,7 @@ DB_NAME = os.environ.get("DATABASE_NAME", "filesharexbot")
 FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "-1001473043276"))
 FORCE_SUB_CHANNEL2 = int(os.environ.get("FORCE_SUB_CHANNEL2", "-1001644866777"))
 
-TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
+TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "20"))
 
 #start message
 START_MSG = os.environ.get("START_MESSAGE", "Hello {mention}\n\nI can store private files in Specified Channel and other users can access it from special link.")
