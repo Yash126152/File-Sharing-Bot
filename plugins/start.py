@@ -35,7 +35,7 @@ async def start_command(client: Client, message: Message):
 
     if not subscribed_channel1 and subscribed_channel2 and is_present_in_airdrop:
         buttons = [
-            [InlineKeyboardButton(text="Join Channel 1", url="https://t.me/Cash_scope")]
+            [InlineKeyboardButton(text="Join Channel", url="https://t.me/Cash_scope")]
         ]
         await message.reply(
             text="I think you forgot to join Channel or You left it.",
@@ -46,7 +46,7 @@ async def start_command(client: Client, message: Message):
 
     if subscribed_channel1 and not subscribed_channel2 and is_present_in_airdrop:
         buttons = [
-            [InlineKeyboardButton(text="Join Channel 2", url="https://t.me/WMA_RQ")]
+            [InlineKeyboardButton(text="Join Channel", url="https://t.me/WMA_RQ")]
         ]
         await message.reply(
             text="I think you forgot to join Channel or You left it.",
