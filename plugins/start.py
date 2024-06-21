@@ -24,7 +24,7 @@ async def start_command(client: Client, message: Message):
         buttons = [
             [InlineKeyboardButton(text="Join Channel 1", url="https://t.me/Cash_scope")],
             [InlineKeyboardButton(text="Join Channel 2", url="https://t.me/WMA_RQ")],
-            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/pixelversexyzbot?start=1374193671")]
+            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTk1MTc1MzZfMzUwNA==")]
         ]
         await message.reply(
             text="You must join the required channels and the airdrop to use me.",
