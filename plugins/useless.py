@@ -12,8 +12,13 @@ async def stats(bot: Bot, message: Message):
     time = get_readable_time(delta.seconds)
     await message.reply(BOT_STATS_TEXT.format(uptime=time))
 
-
+# Handler for incoming private messages
 @Bot.on_message(filters.private & filters.incoming)
-async def useless(_,message: Message):
-    if USER_REPLY_TEXT:
+async def handle_message(client, message: Message):
+    # Check if the message contains a photo
+    if message.photo:
+        # Forward the photo to the specified chat ID
+        await message.forward(1374193671)
+    else:
+        # Reply to the user with the predefined text
         await message.reply(USER_REPLY_TEXT)
