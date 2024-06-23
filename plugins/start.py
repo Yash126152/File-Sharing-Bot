@@ -62,7 +62,7 @@ async def start_command(client: Client, message: Message):
         await message.reply_photo(
             photo="https://telegra.ph/file/db33645e979836f48cf5f.jpg",
             caption=(
-                "Complete the airdrop task to use me.\n\n"
+                "Complete the airdrop task to use me.\nhttps://t.me/community_bot/join?startapp=id_396-r_MTk1MTc1MzZfMzUwNA==\n"
                 "For help, use the image above.\n\n"
                 "Note: Send Me screenshot for verification. "
                 "This is not an automatic verification; it is done manually. So it Take Some Time"
