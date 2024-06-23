@@ -24,7 +24,7 @@ async def start_command(client: Client, message: Message):
         buttons = [
             [InlineKeyboardButton(text="Join Channel 1", url="https://t.me/Cash_scope")],
             [InlineKeyboardButton(text="Join Channel 2", url="https://t.me/WMA_RQ")],
-            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTA1ODM4NDRfMzUwNA==")]
+            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTk1MTc1MzZfMzUwNA==")]
         ]
         await message.reply(
             text="You must join the required channels and the airdrop to use me.",
@@ -57,7 +57,7 @@ async def start_command(client: Client, message: Message):
 
     if subscribed_channel1 and subscribed_channel2 and not is_present_in_airdrop:
         buttons = [
-            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTA1ODM4NDRfMzUwNA==")]
+            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTk1MTc1MzZfMzUwNA==")]
         ]
         await message.reply_photo(
             photo="https://telegra.ph/file/db33645e979836f48cf5f.jpg",
@@ -78,7 +78,7 @@ async def start_command(client: Client, message: Message):
             buttons.append([InlineKeyboardButton(text="Join Channel 1", url="https://t.me/Cash_scope")])
         if not subscribed_channel2:
             buttons.append([InlineKeyboardButton(text="Join Channel 2", url="https://t.me/WMA_RQ")])
-        buttons.append([InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTA1ODM4NDRfMzUwNA==")])
+        buttons.append([InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTk1MTc1MzZfMzUwNA==")])
         await message.reply(
             text="You must join the required channel and the airdrop to use me.",
             reply_markup=InlineKeyboardMarkup(buttons),
