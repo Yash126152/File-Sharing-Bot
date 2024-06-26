@@ -48,6 +48,8 @@ async def start_command(client: Client, message: Message):
                 return
             if start <= end:
                 ids = range(start, end + 1)
+                num_files = len(ids)
+                temp_msg = await message.reply(f"{num_files} Files Sending...")
             else:
                 ids = []
                 i = start
@@ -56,23 +58,25 @@ async def start_command(client: Client, message: Message):
                     i -= 1
                     if i < end:
                         break
+                num_files = len(ids)
+                temp_msg = await message.reply(f"{num_files} Files Sending...")
         elif len(argument) == 2:
             try:
                 ids = [int(int(argument[1]) / abs(client.db_channel.id))]
+                temp_msg = await message.reply("Sending File...")
             except:
                 return
-        temp_msg = await message.reply("Wait A Second...")
+
         try:
             messages = await get_messages(client, ids)
         except:
-            await message.reply_text("Something went wrong..!")
+            await message.reply_text("Something went wrong!")
             return
         await temp_msg.delete()
 
         snt_msgs = []
 
         for msg in messages:
-
             if bool(CUSTOM_CAPTION) & bool(msg.document):
                 caption = CUSTOM_CAPTION.format(previouscaption="" if not msg.caption else msg.caption.html,
                                                 filename=msg.document.file_name)
@@ -96,17 +100,23 @@ async def start_command(client: Client, message: Message):
                 snt_msgs.append(snt_msg)
             except:
                 pass
-        sent_message = await message.reply_text("𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 10 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.\n\nMake money with airdrops! Join the ones listed below and start earning free crypto today!", reply_markup=InlineKeyboardMarkup([
-    [InlineKeyboardButton("Hamster Kombat Airdrop", url="https://t.me/hamster_kombat_boT/start?startapp=kentId1374193671")],
-    [InlineKeyboardButton("Pixelversexy Airdrop", url="https://t.me/pixelversexyzbot?start=1374193671")]
-]))
+        sent_message = await message.reply_text(
+            "𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 10 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.\n\nMake money with airdrops! Join the ones listed below and start earning free crypto today!",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("Hamster Kombat Airdrop", url="https://t.me/hamster_kombat_boT/start?startapp=kentId1374193671")],
+                [InlineKeyboardButton("Pixelversexy Airdrop", url="https://t.me/pixelversexyzbot?start=1374193671")]
+            ])
+        )
 
         # Add a delay of 5 minutes before editing the message
         await asyncio.sleep(600)  # 600 seconds = 10 minutes
 
         # Edit the message
         try:
-            await sent_message.edit("Yᴏᴜʀ Vɪᴅᴇᴏ(es) ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Delete", url=f"https://t.me/{client.username}?start={message.command[1]}")]]))
+            await sent_message.edit(
+                "Yᴏᴜʀ Vɪᴅᴇᴏ(es) ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺",
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Delete", url=f"https://t.me/{client.username}?start={message.command[1]}")]])
+            )
         except:
             pass
         for snt_msg in snt_msgs:
@@ -138,15 +148,13 @@ async def start_command(client: Client, message: Message):
         )
         return
 
-
 #=====================================================================================##
 
-WAIT_MSG = """"<b>Processing ...</b>"""
+WAIT_MSG = """<b>Processing ...</b>"""
 
 REPLY_ERROR = """<code>Use this command as a reply to any telegram message without any spaces.</code>"""
 
 #=====================================================================================##
-
 
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
@@ -181,13 +189,11 @@ async def not_joined(client: Client, message: Message):
         disable_web_page_preview=True
     )
 
-
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
-
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
