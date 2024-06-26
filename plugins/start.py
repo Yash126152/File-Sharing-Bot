@@ -7,86 +7,25 @@ from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 
 from bot import Bot
 from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
-from helper_func import check_subscription, encode, decode, get_messages
+from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
-from database.air_db import secondary_present_user, secondary_add_user
 
-# Replace with your admin user IDs
-ADMIN_IDS = [1374193671, 6357617991]  # Example admin IDs
+@Bot.on_message(filters.command('donate') & filters.private)
+async def donate_command(client: Client, message: Message):
+    donate_message = (
+        "🌟 Thank you for considering a donation! Your support helps us keep this bot running smoothly. 🌟\n\n"
+        "You can donate using the link below:\n"
+        "[Donate](https://oxapay.com/donate/25685660)"
+    )
 
-@Bot.on_message(filters.command('start') & filters.private)
+    await message.reply_text(
+        text=donate_message,
+        parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
+@Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
-    user_id = message.from_user.id
-    subscribed_channel1, subscribed_channel2 = await check_subscription(client, message)
-    is_present_in_airdrop = await secondary_present_user(user_id)
-
-    if not subscribed_channel1 and not subscribed_channel2 and not is_present_in_airdrop:
-        buttons = [
-            [InlineKeyboardButton(text="Join Channel 1", url="https://t.me/Cash_scope")],
-            [InlineKeyboardButton(text="Join Channel 2", url="https://t.me/WMA_RQ")],
-            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTA1ODM4NDRfMzUwNA==")]
-        ]
-        await message.reply(
-            text="You must join the required channels and the airdrop to use me.",
-            reply_markup=InlineKeyboardMarkup(buttons),
-            quote=True
-        )
-        return
-
-    if not subscribed_channel1 and subscribed_channel2 and is_present_in_airdrop:
-        buttons = [
-            [InlineKeyboardButton(text="Join Channel", url="https://t.me/Cash_scope")]
-        ]
-        await message.reply(
-            text="I think you forgot to join Channel or You left it.",
-            reply_markup=InlineKeyboardMarkup(buttons),
-            quote=True
-        )
-        return
-
-    if subscribed_channel1 and not subscribed_channel2 and is_present_in_airdrop:
-        buttons = [
-            [InlineKeyboardButton(text="Join Channel", url="https://t.me/WMA_RQ")]
-        ]
-        await message.reply(
-            text="I think you forgot to join Channel or You left it.",
-            reply_markup=InlineKeyboardMarkup(buttons),
-            quote=True
-        )
-        return
-
-    if subscribed_channel1 and subscribed_channel2 and not is_present_in_airdrop:
-        buttons = [
-            [InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTA1ODM4NDRfMzUwNA==")]
-        ]
-        await message.reply_photo(
-            photo="https://telegra.ph/file/db33645e979836f48cf5f.jpg",
-            caption=(
-                "Complete the airdrop task to use me.\nhttps://t.me/community_bot/join?startapp=id_396-r_MTA1ODM4NDRfMzUwNA==\n"
-                "For help, use the image above.\n\n"
-                "Note: Send Me screenshot for verification. "
-                "This is not an automatic verification; it is done manually. So it Take Some Time"
-            ),
-            reply_markup=InlineKeyboardMarkup(buttons),
-            quote=True
-        )
-        return
-
-    if not subscribed_channel1 or not subscribed_channel2 and not is_present_in_airdrop:
-        buttons = []
-        if not subscribed_channel1:
-            buttons.append([InlineKeyboardButton(text="Join Channel 1", url="https://t.me/Cash_scope")])
-        if not subscribed_channel2:
-            buttons.append([InlineKeyboardButton(text="Join Channel 2", url="https://t.me/WMA_RQ")])
-        buttons.append([InlineKeyboardButton(text="Join Airdrop", url="https://t.me/community_bot/join?startapp=id_396-r_MTA1ODM4NDRfMzUwNA==")])
-        await message.reply(
-            text="You must join the required channel and the airdrop to use me.",
-            reply_markup=InlineKeyboardMarkup(buttons),
-            quote=True
-        )
-        return
-
-    # Proceed with the existing functionality if the user is subscribed and joined the airdrop
     id = message.from_user.id
     if not await present_user(id):
         try:
@@ -122,17 +61,18 @@ async def start_command(client: Client, message: Message):
                 ids = [int(int(argument[1]) / abs(client.db_channel.id))]
             except:
                 return
-        temp_msg = await message.reply("Wait a second...")
+        temp_msg = await message.reply("Wait A Second...")
         try:
             messages = await get_messages(client, ids)
         except:
-            await message.reply_text("Something went wrong!")
+            await message.reply_text("Something went wrong..!")
             return
         await temp_msg.delete()
 
         snt_msgs = []
 
         for msg in messages:
+
             if bool(CUSTOM_CAPTION) & bool(msg.document):
                 caption = CUSTOM_CAPTION.format(previouscaption="" if not msg.caption else msg.caption.html,
                                                 filename=msg.document.file_name)
@@ -156,14 +96,17 @@ async def start_command(client: Client, message: Message):
                 snt_msgs.append(snt_msg)
             except:
                 pass
-        sent_message = await message.reply_text("Files will be deleted in 10 minutes to avoid copyright issues. Please forward and save them.")
+        sent_message = await message.reply_text("𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 10 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.\n\nMake money with airdrops! Join the ones listed below and start earning free crypto today!", reply_markup=InlineKeyboardMarkup([
+    [InlineKeyboardButton("Hamster Kombat Airdrop", url="https://t.me/hamster_kombat_boT/start?startapp=kentId1374193671")],
+    [InlineKeyboardButton("Pixelversexy Airdrop", url="https://t.me/pixelversexyzbot?start=1374193671")]
+]))
 
-        # Add a delay of 10 minutes before editing the message
-        await asyncio.sleep(600)
+        # Add a delay of 5 minutes before editing the message
+        await asyncio.sleep(600)  # 600 seconds = 10 minutes
 
         # Edit the message
         try:
-            await sent_message.edit("Your file/video has been successfully deleted 🥺", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Deleted", url=f"https://t.me/{client.username}?start={message.command[1]}")]]))
+            await sent_message.edit("Yᴏᴜʀ Vɪᴅᴇᴏ(es) ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Delete", url=f"https://t.me/{client.username}?start={message.command[1]}")]]))
         except:
             pass
         for snt_msg in snt_msgs:
@@ -195,27 +138,6 @@ async def start_command(client: Client, message: Message):
         )
         return
 
-@Bot.on_message(filters.command('add') & filters.private)
-async def add_user_command(client: Client, message: Message):
-    if message.from_user.id not in ADMIN_IDS:
-        await message.reply("You are not authorized to use this command.")
-        return
-
-    try:
-        user_id_to_add = int(message.text.split()[1])
-    except IndexError:
-        await message.reply("Please provide a user ID to add.")
-        return
-    except ValueError:
-        await message.reply("Invalid user ID provided.")
-        return
-
-    if await secondary_present_user(user_id_to_add):
-        await message.reply("User is already added to the secondary database.")
-    else:
-        await secondary_add_user(user_id_to_add)
-        await message.reply(f"User {user_id_to_add} has been added to the secondary database.")
-
 
 #=====================================================================================##
 
@@ -224,6 +146,40 @@ WAIT_MSG = """"<b>Processing ...</b>"""
 REPLY_ERROR = """<code>Use this command as a reply to any telegram message without any spaces.</code>"""
 
 #=====================================================================================##
+
+
+@Bot.on_message(filters.command('start') & filters.private)
+async def not_joined(client: Client, message: Message):
+    buttons = [
+        [
+            InlineKeyboardButton(text="ᴊᴏɪɴ Cash_scope", url=client.invitelink),
+            InlineKeyboardButton(text="ᴊᴏɪɴ WMA_RQ", url=client.invitelink2),
+        ]
+    ]
+    try:
+        buttons.append(
+            [
+                InlineKeyboardButton(
+                    text='ʀᴇʟᴏᴀᴅ',
+                    url=f"https://t.me/{client.username}?start={message.command[1]}"
+                )
+            ]
+        )
+    except IndexError:
+        pass
+
+    await message.reply(
+        text=FORCE_MSG.format(
+            first=message.from_user.first_name,
+            last=message.from_user.last_name,
+            username=None if not message.from_user.username else '@' + message.from_user.username,
+            mention=message.from_user.mention,
+            id=message.from_user.id
+        ),
+        reply_markup=InlineKeyboardMarkup(buttons),
+        quote=True,
+        disable_web_page_preview=True
+    )
 
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
