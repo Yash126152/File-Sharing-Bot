@@ -44,7 +44,7 @@ async def start_command(client: Client, message: Message):
                 f"⬩ User ID: <code>{user_id}</ code>"
             )
         except Exception as e:
-            print (f"Error adding user: {e}")
+            print(f"Error adding user: {e}")
     if len(message.text) > 7:
         try:
             base64_string = message.text.split(" ", 1)[1]
@@ -134,6 +134,11 @@ async def start_command(client: Client, message: Message):
 
                                 # Remove words containing '@'
                                 filtered_file_name = ' '.join(word for word in file_name.split() if '@' not in word)
+
+                                # Use original file name if filtered name is empty
+                                if not filtered_file_name:
+                                    filtered_file_name = file_name
+
                                 left_file_names.append(filtered_file_name)
                             except Exception as e:
                                 if "Empty messages cannot be copied" in str(e):
@@ -150,6 +155,7 @@ async def start_command(client: Client, message: Message):
                                 [InlineKeyboardButton("🔄 Reload 🔄", url=f"https://t.me/{client.username}?start={message.command[1]}")]
                             ])
                         )
+
                     await asyncio.sleep(600)  # Wait for 10 minutes before cleaning up
                     for sent_msg in sent_messages:
                         try:
