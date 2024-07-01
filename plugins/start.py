@@ -9,8 +9,8 @@ from config import ADMINS, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PR
 from helper_func import check_subscription, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
-CHANNEL1_URL = "https://t.me/Cash_scope"
-CHANNEL2_URL = "https://t.me/WMA_RQ"
+CHANNEL1_URL = "https://t.me/WMA_RQ"
+CHANNEL2_URL = "https://t.me/Cash_scope"
 LOG_CHANNEL = -1001916032450
 
 @Bot.on_message(filters.command('donate') & filters.private)
@@ -39,7 +39,7 @@ async def start_command(client: Client, message: Message):
             await add_user(user_id)
             await client.send_message(
                 LOG_CHANNEL,
-                f"#NewUser on @{bot_username}<br>\n"
+                f"#NewUser on @{bot_username}<br>\n\n"
                 f"⬩ Username:  <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a><br>\n"
                 f"⬩ User ID: <code>{user_id}</ code>"
             )
@@ -84,8 +84,8 @@ async def start_command(client: Client, message: Message):
                     try:
                         await messagee.delete()
                         await sent_message.edit(
-                            " Yᴏᴜʀ Vɪᴅᴇᴏ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ 🥺",
-                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Delete", url=f"https://t.me/{client.username}?start={message.command[1]}")]])
+                            "Your File/Video is successfully deleted!!!\n\nClick below button to get your deleted file 👇",
+                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Get File Again", url=f"https://t.me/{client.username}?start={message.command[1]}")]])
                         )
                     except Exception as e:
                         print(f"Error editing message: {e}")
@@ -221,8 +221,8 @@ async def start_command(client: Client, message: Message):
 
         try:
             await sent_message.edit(
-                "Your video(es) is successfully deleted 🥺",
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restore Delete", url=f"https://t.me/{client.username}?start={message.command[1]}")]])
+                "Your File/Video is successfully deleted!!!\n\nClick below button to get your deleted file 👇",
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Get Files Again", url=f"https://t.me/{client.username}?start={message.command[1]}")]])
             )
         except Exception as e:
             print(f"Error editing message: {e}")
