@@ -13,20 +13,6 @@ CHANNEL1_URL = "https://t.me/WMA_RQ"
 CHANNEL2_URL = "https://t.me/Cash_scope"
 LOG_CHANNEL = -1001916032450
 
-@Bot.on_message(filters.command('donate') & filters.private)
-async def donate_command(client: Client, message: Message):
-    donate_message = (
-        "🌟 Thank you for considering a donation! Your support helps us keep this bot running smoothly. 🌟\n\n"
-        "You can donate using the link below:\n"
-        "[Donate](https://oxapay.com/donate/25685660)"
-    )
-
-    await message.reply_text(
-        text=donate_message,
-        parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
-
 @Bot.on_message(filters.command('start') & filters.private)
 async def start_command(client: Client, message: Message):
     user_id = message.from_user.id
@@ -72,7 +58,7 @@ async def start_command(client: Client, message: Message):
 
                     # Add the new code block here
                     sent_message = await message.reply_text(
-                        "𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 10 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.\n\nMake money with airdrops! Join the ones listed below and start earning free crypto today!",
+                        "𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 10 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.\n\nMake money with airdrops! Join the ones listed below and start earning free crypto today!\n\nDon't Forget To /Donate",
                         reply_markup=InlineKeyboardMarkup([
                             [InlineKeyboardButton("Hamster Airdrop", url="https://t.me/hamster_kombat_boT/start?startapp=kentId1374193671"),
                             InlineKeyboardButton("PixelTap Airdrop", url="https://t.me/pixelversexyzbot?start=1374193671")]
@@ -149,9 +135,9 @@ async def start_command(client: Client, message: Message):
                         left_files_info = "\n".join(f"{idx + 1}. {file_name}" for idx, file_name in enumerate(left_file_names))
                         must_channel_url = CHANNEL1_URL if subscribed_channel1 else CHANNEL2_URL
                         await message.reply_text(
-                            f"Oops! Failed to send {num_files - half_files} files. Here are the remaining files:\n\n{left_files_info}\n\nJoin Channel To Get All Files.",
+                            f"Oops! Failed to send {num_files - half_files} files. Here are the remaining files:\n\n{left_files_info}\n\nJoin 2nd Channel To Get All Files.",
                             reply_markup=InlineKeyboardMarkup([
-                                [InlineKeyboardButton("🛰 Join Channel 🛰", url=must_channel_url)],
+                                [InlineKeyboardButton("📀 Join Channel 📀", url=must_channel_url)],
                                 [InlineKeyboardButton("🔄 Reload 🔄", url=f"https://t.me/{client.username}?start={message.command[1]}")]
                             ])
                         )
@@ -210,7 +196,7 @@ async def start_command(client: Client, message: Message):
                 print(f"Error sending message: {e}")
 
         sent_message = await message.reply_text(
-            "𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 10 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.\n\nMake money with airdrops! Join the ones listed below and start earning free crypto today!",
+            "𝔉𝔦𝔩𝔢𝔰 𝔴𝔦𝔩𝔩 𝔟𝔢 𝔡𝔢𝔩𝔢𝔱𝔢𝔡 𝔦𝔫 10 𝔪𝔦𝔫𝔲𝔱𝔢𝔰 𝔱𝔬 𝔞𝔳𝔬𝔦𝔡 𝔠𝔬𝔭𝔶𝔯𝔦𝔤𝔥𝔱 𝔦𝔰𝔰𝔲𝔢𝔰. ℙ𝕝𝕖𝕒𝕤𝕖 𝕗𝕠𝕣𝕨𝕒𝕣𝕕 𝕒𝕟𝕕 𝕤𝕒𝕧𝕖 𝕥𝕙𝕖𝕞.\n\nMake money with airdrops! Join the ones listed below and start earning free crypto today!\n\nDon't Forget To /Donate",
             reply_markup=InlineKeyboardMarkup([
                 [InlineKeyboardButton("Hamster Airdrop", url="https://t.me/hamster_kombat_boT/start?startapp=kentId1374193671"),
                 InlineKeyboardButton("PixelTap Airdrop", url="https://t.me/pixelversexyzbot?start=1374193671")]
