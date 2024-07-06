@@ -20,7 +20,7 @@ async def set_hyperlink_titl(client: Client, message: Message):
     else:
         await message.reply_text(f"Please provide a valid title.\n\nCurrent Forward Message's Hyperlink Title :- {hyperlink_titl}")
 
-@Bot.on_message(filters.private & filters.user(ADMINS) & ~filters.command(['start','users','broadcast','batch','genlink','stats','donate','blink','glink','flink','refund']))
+@Bot.on_message(filters.private & filters.user(ADMINS) & ~filters.command(['start','users','broadcast','batch','genlink','stats','donate','blink','glink','flink','refund','admin']))
 async def channel_post(client: Client, message: Message):
     reply_text = await message.reply_text("Please Wait...!", quote=True)
     try:
