@@ -254,6 +254,22 @@ async def get_users(client: Bot, message: Message):
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
+@Bot.on_message(filters.private & filters.command("admin") & filters.user(ADMINS))
+async def admin_command(_, message: Message):
+    admin_reply_text = """
+🦋 ADMIN ALL COMMANDS HERE
+
+⦿ /users - Use This Command To See Total Users
+⦿ /batch - Create link for more than one posts
+⦿ /broadcast - Use This Command To Send A Message To Users
+⦿ /stats - Checking your bot uptime
+⦿ /genlink - Create link for one post
+⦿ /flink - Forward's Hyperlink Title 
+⦿ /glink - Generate's Hyperlink Title 
+⦿ /blink - Batch's Hyperlink Title 
+⦿ /refund - refund payment
+"""
+    await message.reply(admin_reply_text)
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
