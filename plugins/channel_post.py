@@ -42,12 +42,7 @@ async def channel_post(client: Client, message: Message):
     try:
         await reply_text.edit_text(
             f"<b>Links\n\nBot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_titl}</a>\n\n"
-            f"<b>Bot 2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_titl}</a>\n\n"
-            f"<b>Bot 3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_titl}</a>\n\n"
-            f"<b>Bot 4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_titl}</a>\n\n"
-            "Note:-\nKnow that <a href='https://t.me/Cash_scope'>all</a> our bots function the same. "
-            "In case one is down, simply switch <a href='https://t.me/WMA_RQ'>to</a> another for uninterrupted service.\n"
-            "<a href='https://t.me/Cash_scope/238'>Direct File</a>", 
+            f"<b>Bot 2:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_titl}</a>", 
             disable_web_page_preview=True,
             reply_markup=reply_markup
         )
