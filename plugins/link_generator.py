@@ -63,7 +63,7 @@ async def batch(client: Client, message: Message):
     link = f"{base64_string}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("📂 Get Files", url=f'https://t.me/{client.username}?start={link}')]])
 
-    await second_message.reply_text(f"<b>Links 🔗\n\nBot1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_title}</a>\n\nNote:-\nKnow that <a href='https://t.me/Cash_scope'>all</a> our bots function the same. In case one is down, simply switch <a href='https://t.me/WMA_RQ'>to</a> another for uninterrupted service.\n<a href='https://t.me/Cash_scope/238'>Direct Files</a>", quote=True,
+    await second_message.reply_text(f"<b>Links 🔗\n\nBot1 :</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_title}</a>\n\n<b>Bot2 :</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_title}</a>", quote=True,
         disable_web_page_preview=True
     )
 
@@ -84,6 +84,6 @@ async def link_generator(client: Client, message: Message):
     base64_string = await encode(f"get-{msg_id * abs(client.db_channel.id)}")
     link = f"{base64_string}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("📂 Get File", url=f'https://t.me/{client.username}?start={link}')]])
-    await channel_message.reply_text(f"<b>Links 🔗\n\n<b>Bot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_titl}</a>\n\n<b>Bot 2:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_titl}</a>\n\n<b>Bot 3:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_titl}</a>\n\n<b>Bot 4:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_titl}</a>\n\nNote:-\nKnow that <a href='https://t.me/Cash_scope'>all</a> our bots function the same. In case one is down, simply switch <a href='https://t.me/WMA_RQ'>to</a> another for uninterrupted service.\n<a href='https://t.me/Cash_scope/238'>Direct File</a>", quote=True,
+    await channel_message.reply_text(f"<b>Links 🔗\n\n<b>Bot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_titl}</a>\n\n<b>Bot 2:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_titl}</a>", quote=True,
         disable_web_page_preview=True
     )
