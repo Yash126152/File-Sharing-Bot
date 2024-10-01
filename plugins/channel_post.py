@@ -41,8 +41,8 @@ async def channel_post(client: Client, message: Message):
 
     try:
         await reply_text.edit_text(
-            f"<b>Links\n\nBot 1:</b> <a href='https://t.me/WMA_RQ1_bot?start={link}'>{hyperlink_titl}</a>\n\n"
-            f"<b>Bot 2:</b> <a href='https://t.me/WebMoviesRebot?start={link}'>{hyperlink_titl}</a>", 
+            f"<b>Links\n\nBot 1:</b> <a href='https://t.me/WMA_RQ2_bot?start={link}'>{hyperlink_titl}</a>\n\n"
+            f"<b>Bot 2:</b> <a href='https://t.me/WMA_RQ_bot?start={link}'>{hyperlink_titl}</a>", 
             disable_web_page_preview=True,
             reply_markup=reply_markup
         )
